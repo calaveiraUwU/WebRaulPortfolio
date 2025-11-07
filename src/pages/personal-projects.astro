@@ -2,8 +2,11 @@
 import Header from '../components/Header.astro';
 import Project from '../components/Project.astro';
 import Sidebar from '../components/Sidebar.astro';
+import ProjectGallery from '../components/ProjectGallery.astro';
+
 const projects = [
   {
+    
     title: "Unf0und_VR - Horror VR Experience",
     type: "Virtual Reality Horror Game",
     desc: [
@@ -34,16 +37,20 @@ const projects = [
 
     ]},
   {
+    media: [
+      { type: 'video', src: '/assets/Demo/DemoRaul.mp4' },
+      { type: 'image', src: '/assets/Demo/Character.png'}
+    ],
     title: "WebAssetHub",
     type: "Virtual Reality Horror Game",
     desc: [
       "Created a web scraper tool that monitors digital assets across multiple platforms and offers them at competitive prices",
       "Sold over 700 items"
     ],
-    media: [
-      { type: 'video', src: '/assets/Demo/DemoRaul.mp4' },
-      { type: 'image', src: '/assets/Demo/Character.png'}
-    ],
+    // media: [
+    //   { type: 'video', src: '/assets/Demo/DemoRaul.mp4' },
+    //   { type: 'image', src: '/assets/Demo/Character.png'}
+    // ],
     tech: ["Python", "Selenium"],
     
   }
@@ -55,37 +62,39 @@ const projects = [
   <Header title="Personal Projects | Raul Cano Portolés" />
   <body>
     <div class="content">
-        <Sidebar selectedItem="personal-projects" />
+      <Sidebar selectedItem="personal-projects" />
       <nav class="main">
         <div class="container">
           <div class="back-nav-container">
-            <a href="/" class="back-nav-button w-inline-block"
-              ><img src="/assets/back.svg" loading="lazy" alt="" class="back-nav-img" />
-              <div>Back</div></a
-            >
+            <a href="/" class="back-nav-button w-inline-block">
+              <img src="/assets/back.svg" loading="lazy" alt="" class="back-nav-img" />
+              <div>Back</div>
+            </a>
           </div>
+
           <div class="content-container">
             <h1>Personal Projects</h1>
             <section class="items-container">
-                <div class="resouce-items">
-                    {projects.map(project => (
-                      <Project 
+              <div class="resouce-items">
+                {projects.map(project => (
+                  <div class="project-wrapper">
+                    <Project
                         title={project.title} 
                         type={project.type}
                         desc={project.desc}
-                        media={project.media}
                         tech={project.tech}
                         highlights={project.highlights}
                         links={project.links}
                       />
-                    ))}
+                    <ProjectGallery media={project.media} />
                   </div>
+                ))}
+              </div>
             </section>
           </div>
         </div>
       </nav>
     </div>
-
-    <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
   </body>
 </html>
+

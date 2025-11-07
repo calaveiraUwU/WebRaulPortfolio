@@ -1,11 +1,18 @@
 ---
 import ProjectGallery from "./ProjectGallery.astro";
-const { title, type, desc, tech, media = [] , highlights = [], links = []} = Astro.props;
+const { title, type, desc, tech, highlights = [], links = []} = Astro.props;
 ---
 
 <article class="project-card">
+  <!-- <ProjectGallery
+  media={[
+    { type: "video", src: "/assets/Demo/DemoRaul.mp4" },
+    { type: "image", src: "/assets/Demo/Character.png" },
+    { type: "image", src: "/media/unfound_2.jpg" }
+  ]}
+/> -->
   <header class="project-header">
-    {media.length > 0 && <ProjectGallery media={media} />}
+   <!--{media.length > 0 && <ProjectGallery media={media} />}-->
     <h3 class="project-title">{title}</h3>
     {type && <p class="project-type">{type}</p>}
   </header>
@@ -23,6 +30,7 @@ const { title, type, desc, tech, media = [] , highlights = [], links = []} = Ast
         </ul>
       </div>
     )}
+
 
     <div class="mini-label">Technologies & Tools</div>
     <div class="chips-container">

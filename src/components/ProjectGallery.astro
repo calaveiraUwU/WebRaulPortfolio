@@ -1,10 +1,14 @@
 ---
 import ProjectGalleryClient from './ProjectGalleryClient.jsx';
-
-const { title, type, desc, tech, media = [], highlights = [], links = [] } = Astro.props;
+const { media } = Astro.props; 
+// media = [{ type: "image" | "video", src: "..." }, ...]
+const { title, type, desc, tech, highlights = [], links = [] } = Astro.props;
 ---
+
+<ProjectGalleryClient media={media} client:load />
+
 <div class="single-item">
-    {media.length > 0 && <ProjectGalleryClient client:load media={media} />}
+    <!-- {media.length > 0 && <ProjectGalleryClient client:load media={media} />} -->
 
   <h3>{title}</h3>
   {type && <p class="project-type">{type}</p>}
