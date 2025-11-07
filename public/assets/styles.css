@@ -670,6 +670,142 @@ p {
     width: 64px;
     height: 64px;
   }
-
-  
+.gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: #141414;
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  padding: 1rem;
 }
+
+.gallery-main {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.gallery-main video,
+.gallery-main img {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.gallery-thumbnails {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+.thumb-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 8px;
+  overflow: hidden;
+  min-width: 120px;
+  height: 70px;
+  flex-shrink: 0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.thumb-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 8px rgba(255,255,255,0.3);
+}
+
+.thumb-btn img,
+.thumb-btn video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Ensure main media elements (explicit classes from React component) also obey sizing */
+.gallery-video,
+.gallery-image {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+/* Make gallery responsive and centered */
+.gallery {
+  max-width: 1000px; /* limit on large screens */
+  width: 100%;
+  margin: 0 auto; /* center */
+}
+
+/* Cap the visual height of the main area so videos don't become huge */
+.gallery-main {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 600px;
+  background: #000;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* Thumbnails: responsive sizing and smaller on mobile */
+.thumb-btn {
+  min-width: 120px;
+  height: 70px;
+}
+
+/* Active thumbnail visual */
+.thumb-btn.active,
+.thumb-btn:focus {
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.06);
+}
+
+/* Breakpoints */
+@media screen and (max-width: 991px) {
+  .gallery {
+    max-width: 760px;
+    padding: 0.75rem;
+  }
+
+  .gallery-main {
+    max-height: 480px;
+  }
+
+  .thumb-btn {
+    min-width: 100px;
+    height: 64px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .gallery {
+    max-width: 100%;
+    padding: 0.5rem;
+  }
+
+  /* On small screens use a taller ratio so main preview remains visible */
+  .gallery-main {
+    aspect-ratio: 4 / 3;
+    max-height: 420px;
+  }
+
+  .thumb-btn {
+    min-width: 72px;
+    height: 56px;
+  }
+
+  .gallery-thumbnails {
+    gap: 0.4rem;
+  }
+}
+
+

@@ -40,14 +40,18 @@ const projects = [
       "Created a web scraper tool that monitors digital assets across multiple platforms and offers them at competitive prices",
       "Sold over 700 items"
     ],
-    tech: ["Python", "Selenium"]
+    media: [
+      { type: 'video', src: '/assets/Demo/DemoRaul.mp4' },
+      { type: 'image', src: '/assets/Demo/Character.png'}
+    ],
+    tech: ["Python", "Selenium"],
+    
   }
 ];
 ---
 
 <!DOCTYPE html>
-<html
->
+<html>
   <Header title="Personal Projects | Raul Cano Portolés" />
   <body>
     <div class="content">
@@ -69,6 +73,7 @@ const projects = [
                         title={project.title} 
                         type={project.type}
                         desc={project.desc}
+                        media={project.media}
                         tech={project.tech}
                         highlights={project.highlights}
                         links={project.links}

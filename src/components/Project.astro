@@ -1,9 +1,11 @@
 ---
-const { title, type, desc, tech, highlights = [], links = [] } = Astro.props;
+import ProjectGallery from "./ProjectGallery.astro";
+const { title, type, desc, tech, media = [] , highlights = [], links = []} = Astro.props;
 ---
 
 <article class="project-card">
   <header class="project-header">
+    {media.length > 0 && <ProjectGallery media={media} />}
     <h3 class="project-title">{title}</h3>
     {type && <p class="project-type">{type}</p>}
   </header>
