@@ -6,7 +6,12 @@ import ProjectGallery from '../components/ProjectGallery.astro';
 
 const projects = [
   {
-    
+    media: [
+      
+      { type: 'image', src: '/assets/media/unfound/portada.jpeg' },
+      { type: 'video', src: '/assets/media/unfound/Trailer.mp4' },
+      { type: 'video', src: '/assets/media/unfound/Gameplay.mp4' }
+    ],
     title: "Unf0und_VR - Horror VR Experience",
     type: "Virtual Reality Horror Game",
     desc: [
@@ -38,8 +43,8 @@ const projects = [
     ]},
   {
     media: [
-      { type: 'video', src: '/assets/Demo/DemoRaul.mp4' },
-      { type: 'image', src: '/assets/Demo/Character.png'}
+      { type: 'video', src: '/assets/media/Demo/DemoRaul.mp4' },
+      { type: 'image', src: '/assets/media/Demo/Character.png'}
     ],
     title: "WebAssetHub",
     type: "Virtual Reality Horror Game",
@@ -78,6 +83,7 @@ const projects = [
               <div class="resouce-items">
                 {projects.map(project => (
                   <div class="project-wrapper">
+                    <ProjectGallery media={project.media} />
                     <Project
                         title={project.title} 
                         type={project.type}
@@ -86,7 +92,6 @@ const projects = [
                         highlights={project.highlights}
                         links={project.links}
                       />
-                    <ProjectGallery media={project.media} />
                   </div>
                 ))}
               </div>

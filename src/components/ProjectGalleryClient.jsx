@@ -1,40 +1,91 @@
-import React, { useState } from 'react';
-import './ProjectGallery.css';
+// src/components/ProjectGalleryClient.jsx
+import React, { useState, useEffect, useRef } from "react";
+import "./ProjectGallery.css"; // asegúrate de tener este archivo o mover estilos a global
 
 export default function ProjectGalleryClient({ media }) {
-  const [selected, setSelected] = useState(0);
-  const current = media[selected];
+  // Normalizar media a array vacío si viene undefined/null
+  const safeMedia = Array.isArray(media) ? media : [];
+
+  // selected: índice del item seleccionado; -1 = ninguno / placeholder
+  const [selected, setSelected] = useState(safeMedia.length ? 0 : -1);
+  const mainRef = useRef(null);
+
+  // Si la prop media cambia dinámicamente, ajustamos selected
+  useEffect(() => {
+    if (safeMedia.length === 0) {
+      setSelected(-1);
+      return;
+    }
+    // Si antes no había nada y ahora sí, seleccionamos el primero
+    if (selected === -1 && safeMedia.length > 0) {
+      setSelected(0);
+      return;
+    }
+    // Si el índice seleccionado excede el nuevo tamaño, lo recortamos
+    if (selected >= safeMedia.length) {
+      setSelected(safeMedia.length - 1);
+    }
+  }, [media]); // dependemos de media (prop) para reaccionar a cambios
+
+  // Fade simple al cambiar seleccionado
+  useEffect(() => {
+    const el = mainRef.current;
+    if (!el) return;
+    el.classList.remove("fade-in");
+    // trigger reflow para reiniciar la animación
+    void el.offsetWidth;
+    el.classList.add("fade-in");
+  }, [selected]);
+
+  const current = selected >= 0 ? safeMedia[selected] : null;
 
   return (
     <div className="gallery">
-      <div className="gallery-main">
-        {current.type === 'video' ? (
-          <video 
-            src={current.src} 
-            controls 
-            controlsList="nodownload"
-            preload="metadata"
-          />
+      <div className="gallery-main" ref={mainRef}>
+        {current ? (
+          current.type === "video" ? (
+            // El video NO hace autoplay; el usuario debe pulsar play
+            <video
+              key={current.src}
+              src={current.src}
+              controls
+              playsInline
+              preload="metadata"
+              className="gallery-video"
+            />
+          ) : (
+            <img
+              key={current.src}
+              src={current.src}
+              alt={`Preview ${selected + 1}`}
+              className="gallery-image"
+            />
+          )
         ) : (
-          <img src={current.src} alt={`Media ${selected + 1}`} />
+          <div className="gallery-placeholder">
+            <p>No media available</p>
+          </div>
         )}
       </div>
 
-      <div className="gallery-thumbs">
-        {media.map((item, index) => (
-          <button 
-            key={index}
-            className={`thumb ${index === selected ? 'active' : ''}`}
-            onClick={() => setSelected(index)}
-          >
-            {item.type === 'video' ? (
-              <video src={item.src} muted preload="metadata" />
-            ) : (
-              <img src={item.src} alt={`Thumbnail ${index + 1}`} />
-            )}
-          </button>
-        ))}
-      </div>
+      {safeMedia.length > 0 && (
+        <div className="gallery-thumbs" role="list">
+          {safeMedia.map((item, i) => (
+            <button
+              key={i}
+              className={`thumb ${i === selected ? "active" : ""}`}
+              onClick={() => setSelected(i)}
+              aria-label={`Select media ${i + 1}`}
+            >
+              {item.type === "video" ? (
+                <video src={item.src} muted loop playsInline preload="metadata" />
+              ) : (
+                <img src={item.src} alt={`Thumbnail ${i + 1}`} />
+              )}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
