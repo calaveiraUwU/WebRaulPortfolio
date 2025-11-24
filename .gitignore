@@ -22,7 +22,7 @@ pnpm-debug.log*
 .yarn/install-state.gz
 
 # Big files
-.mp4
-.zip
-.rar
-.mov
+*.mp4
+*.zip
+*.rar
+*.mov
