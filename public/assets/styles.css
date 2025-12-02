@@ -1598,3 +1598,72 @@ p {
   border: none;
   display: block; /* Soluciona glitch en Chrome */
 }
+/* --- LIGHTBOX FULLSCREEN --- */
+.cv-lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .35s ease;
+}
+
+.cv-lightbox.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* --- INNER CARD --- */
+.cv-lightbox-inner {
+  width: 80%;
+  height: 85%;
+  max-width: 950px;
+  background: #1c1c1c;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+  
+  /* Animación desde la derecha */
+  transform: translateX(-120px) scale(0.96);
+  opacity: 0;
+  transition: transform .45s cubic-bezier(.16,.84,.44,1), opacity .45s ease;
+}
+
+.cv-lightbox.show .cv-lightbox-inner {
+  transform: translateX(0) scale(1);
+  opacity: 1;
+}
+
+/* --- CLOSE BUTTON --- */
+.cv-lightbox-close {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  font-size: 26px;
+  cursor: pointer;
+  color: #fff;
+  z-index: 10;
+  opacity: 0.75;
+  transition: opacity .2s;
+}
+
+.cv-lightbox-close:hover {
+  opacity: 1;
+}
+
+/* --- PDF FRAME --- */
+.cv-frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: #111;
+}
+
+.hidden {
+  display: none;
+}

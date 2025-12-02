@@ -25,7 +25,17 @@ import Sidebar from "../components/Sidebar.astro";
               <a href="/personal-projects" class="button w-button">View Portfolio</a>
 
               <!-- Botón que abre el CV en PDF -->
-              <a href="/assets/CV_RaulCano.pdf" class="button w-button">Download CV</a>
+               <button id="openCvLightbox" class="button purple-btn">
+                  View CV
+               </button>
+               <div id="cvLightbox" class="cv-lightbox hidden">
+                <div class="cv-lightbox-inner">
+                  <div class="cv-lightbox-close" id="closeCvLightbox">✕</div>
+
+                  <!-- Aquí se muestra tu PDF -->
+                  <iframe src="/assets/CV_RaulCano.pdf" class="cv-frame"></iframe>
+                </div>
+              </div>
 
               <!-- Botón que lleva a LinkedIn -->
               <a href="https://www.linkedin.com/in/raul-cano-portol%C3%A9s/" 
@@ -46,4 +56,36 @@ import Sidebar from "../components/Sidebar.astro";
 
     <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
   </body>
+  <script>
+  const openBtn = document.getElementById("openCvLightbox");
+  const lightbox = document.getElementById("cvLightbox");
+  const closeBtn = document.getElementById("closeCvLightbox");
+
+  openBtn?.addEventListener("click", () => {
+    lightbox.classList.remove("hidden");
+    
+    // retrasa para permitir transition
+    setTimeout(() => {
+      lightbox.classList.add("show");
+    }, 10);
+  });
+
+  closeBtn?.addEventListener("click", () => {
+    lightbox.classList.remove("show");
+    setTimeout(() => {
+      lightbox.classList.add("hidden");
+    }, 350);
+  });
+
+  // cerrar haciendo click fuera
+  lightbox?.addEventListener("click", (e) => {
+    if (e.target === lightbox) {
+      lightbox.classList.remove("show");
+      setTimeout(() => {
+        lightbox.classList.add("hidden");
+      }, 350);
+    }
+  });
+</script>
+
 </html>
